@@ -197,9 +197,9 @@ footer{padding:36px 0 50px;text-align:center;color:var(--muted);font-size:14px}
       <h3>Msc. Luis Homero Caiza Soria</h3>
       <p>Machachi, Ecuador</p>
       <div class="stats">
-        <div><b>12+</b><small>años en software</small></div>
-        <div><b>4</b><small>certificaciones</small></div>
-        <div><b>17</b><small>cursos de IA</small></div>
+        <div><b id="stat-years">12+</b><small>años en software</small></div>
+        <div><b id="stat-certs">4</b><small>certificaciones</small></div>
+        <div><b id="stat-ia">17</b><small>cursos de IA</small></div>
       </div>
     </aside>
   </div>
@@ -327,7 +327,7 @@ footer{padding:36px 0 50px;text-align:center;color:var(--muted);font-size:14px}
       </div>
       <div class="reveal">
         <div class="col-title">Certificaciones</div>
-        <div class="list">
+        <div class="list" id="certs-list">
           <div class="row"><em>☁️</em><div><b>Microsoft Certified: Azure Administrator Associate</b><span>Microsoft · 2023</span></div></div>
           <div class="row"><em>☁️</em><div><b>Microsoft Certified: Azure Developer Associate</b><span>Microsoft · 2022</span></div></div>
           <div class="row"><em>🧩</em><div><b>Certified Scrum Product Owner® (CSPO®)</b><span>Scrum Alliance · 2020</span></div></div>
@@ -415,6 +415,10 @@ const COURSES = [
  ["Java Advanced Developer","CEC-EPN · 2013 · 128 h","dev"]
 ];
 const cbox = document.getElementById("courses");
+/* Contadores de la portada: se calculan solos, no se editan a mano */
+document.getElementById("stat-ia").textContent = COURSES.filter(c=>c[2]==="ia").length;
+document.getElementById("stat-certs").textContent = document.querySelectorAll("#certs-list .row").length;
+document.getElementById("stat-years").textContent = (new Date().getFullYear()-2014)+"+";
 cbox.innerHTML = COURSES.map(c=>`<div class="course" data-c="${c[2]}"><b>${c[0]}</b><span>${c[1]}</span></div>`).join("");
 document.getElementById("filters").addEventListener("click",e=>{
   const b = e.target.closest("button"); if(!b) return;
